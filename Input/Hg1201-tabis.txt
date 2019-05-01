@@ -1,0 +1,8 @@
+#distancias em (Angstrons), dopagem em (holes/unity cell), energia em (eV)
+crystal_name    = Hg1201-Tabis
+data_len        = 7
+unit_cell_100   = 3.88
+charge_mod      = 0.5
+correlation_len = 19.85, 24.5 , 33.04, 26.0, 25.0, 22.176, 19.484
+error_corr_len  = 10.0 , 7.0  , 12.0 , 12.0, 12.0 , 10.0,  7
+dope            = 0.064, 0.074, 0.083, 0.09, 0.094, 0.10, 0.105

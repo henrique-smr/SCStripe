@@ -1,0 +1,8 @@
+#distancias em (Angstrons), dopagem em (holes/unity cell), energia em (eV)
+crystal_name    = LaBaCuO-Hucker
+data_len        = 6
+unit_cell_100   = 3.7873
+charge_mod     = 0.6
+correlation_len = 47.58, 71.64, 94.34, 188.62, 94.44, 86.54
+error_corr_len  = 10.0, 1.0, 25.0, 12.5, 1.0, 25.0
+dope            = 0.095, 0.110, 0.115, 0.125, 0.135, 0.156 

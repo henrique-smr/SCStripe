@@ -1,0 +1,8 @@
+#distancias em (Angstrons), dopagem em (holes/unity cell), energia em (eV)
+crystal_name    = YaBaCuO-Blanco&Canosa
+data_len        = 8
+unit_cell_100   = 3.8227
+charge_mod      = 0.5
+correlation_len = 47.55 , 52.3 , 56.68 , 71.56, 71.56, 64.54, 52.28, 29.1
+error_corr_len  = 10.0 , 7.0  , 12.0 , 12.0 , 12.0 , 10.0 , 7.0  , 8.0
+dope            = 0.086, 0.092, 0.100, 0.115, 0.120, 0.135, 0.147, 0.165

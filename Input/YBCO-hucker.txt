@@ -1,0 +1,8 @@
+#distancias em (Angstrons), dopagem em (holes/unity cell), energia em (eV)
+crystal_name    = YaBaCuO-Hucker
+data_len        = 6
+unit_cell_100   = 3.8227
+charge_mod      = 0.5
+correlation_len = 56.7, 60.74, 60.74, 64.54, 64.53, 68.11
+error_corr_len  = 7.0, 7.0, 7.0, 7.0, 10.0, 10.0
+dope            = 0.078, 0.096, 0.104, 0.123, 0.132, 0.165
