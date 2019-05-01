@@ -6,7 +6,7 @@ function LegendreInterpolation (data_,numOfPoints) result(result)
 
         real*8, intent(in), dimension(:,:) :: data_  !contem os dados (xi,yi)
         integer, intent(in)              :: numOfPoints
-        real*8,                          :: result(numOfPoints,2)
+        real*8                           :: result(numOfPoints,2)
         real*8, allocatable              :: ItpL(:)
         real                             :: x, dx_
         real*8                           :: q
@@ -25,8 +25,8 @@ function LegendreInterpolation (data_,numOfPoints) result(result)
              do j_=1,N
                 q = q + data_(j_,2)*Lj(data_(:,1),j_,x)
              end do           
-             result(i,1)  x 
-             result(i,2)  q
+             result(i_,1) = x 
+             result(i_,2) = q
         end do
 end function
 function LJ (data_,i,x) result(r_)

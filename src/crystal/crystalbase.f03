@@ -17,7 +17,7 @@ module crystalBase
         integer                        :: dataLEN                         !Número de pontos.
         real                           :: charge_mod                      !Modulação de de carga dentro do poço ()
         real                           :: unit_cell_100                   !Distancia [100] do cristal
-        character(len=32)              :: name                            !Nome do cristal
+        character(:),allocatable          :: name                            !Nome do cristal
     !-----------------------------------------------------------------------------------------------------------------------!
         real, allocatable                :: corr_L(:), ee_corr_L(:)         !Comprimento de correlação ; Erro sobre corr_L 
         real, allocatable                :: dope(:)                         !Dopagem do cristal (hole/unity cell)
@@ -30,13 +30,16 @@ module crystalBase
         type(Earray), dimension(:), allocatable               :: well_E_impar !Array com as energias do poço quadrado com Comprimento 'corr_L' na simetria impar
     !----------------------------------------------------------------------------------------------------------------------------------------
     contains
-    !-----------------------------------------------
-        procedure , private ::  setParams
+    !----------------------------------------------
         procedure , public  ::  setCrystal
         procedure , public  ::  setWells
-        procedure , public  ::  closeCrystal
         procedure , public  ::  printCrystalData
         procedure , public  ::  Well
+        procedure , public  ::  closeCrystal
+    !----------------------------------------------
+        procedure , private  ::  setParams
+        procedure , private  ::  alloc
+        procedure , private  ::  dealloc
     !-----------------------------------------------
     end type
 
@@ -47,42 +50,23 @@ contains
 
 
 !--------------------------------
-#include <../scr/crystal/setWells.f03>
+#include<../src/crystal/setCrystal.f03>
 
-#include<../scr/crystal/setParams.f03>
+#include<../src/crystal/setWells.f03>
 
-#include<../scr/crystal/printCrystalData.f03>
+#include<../src/crystal/setParams.f03>
 
-#include<../scr/crystal/find_in_file.f03>
+#include<../src/crystal/find_in_file.f03>
 
-#include<../scr/crystal/setCrystal.f03>
+#include<../src/crystal/printCrystalData.f03>
 
-!----------------------------------------------------------------------------------------------------
-!Função para facilitar o acesso às auto-energias
-!----------------------------------------------------------------------------------------------------
-function well(this, i_, j_) result(c)
-    class(crystal), intent(in) :: this
-    integer, intent(in)        :: i_, j_
-    real*8                     :: c
+#include<../src/crystal/well.f03>
 
-    c = this%well_E(i_)%E(j_)
+#include<../src/crystal/closeCrystal.f03>
 
-end function
+#include<../src/crystal/alloc.f03>
 
-
-subroutine closeCrystal(this)
-    implicit none
-    class(crystal), intent(inout) :: this
-    deallocate(this%corr_L)
-    deallocate(this%ee_corr_L)
-    deallocate(this%E_0)
-    deallocate(this%Nmax)
-    deallocate(this%dope)
-    deallocate(this%well_E)
-    deallocate(this%well_E_impar)
-    deallocate(this%well_E_par)  
-end subroutine closeCrystal
-
+#include<../src/crystal/dealloc.f03>
 
 
 end module crystalBase

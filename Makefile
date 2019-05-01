@@ -24,9 +24,9 @@ target = SCStripe
 
 #=====Sources and Objects=========================================
 
-files = $(SRCDIR)/well/base/instructools.f03 $(SRCDIR)/plotter.f03 $(SRCDIR)/well/base/base.f03  \
+files = $(SRCDIR)/well/base/instructools.f03 $(SRCDIR)/plotter/plotter.f03 $(SRCDIR)/well/base/base.f03  \
 		  $(SRCDIR)/well/calculator.f03 $(SRCDIR)/well/auto.f03 \
-		  $(SRCDIR)/crystal/crystalbase.f03 $(SRCDIR)/analysis.f03 \
+		  $(SRCDIR)/crystal/crystalbase.f03 $(SRCDIR)/analysis/analysis.f03 \
 		   $(SRCDIR)/main.f03 
 
 
@@ -61,7 +61,7 @@ $(BINDIR)/data_fit.o: $(SRCDIR)/data_fit/data_fit.f03
 $(BINDIR)/base.o: $(SRCDIR)/well/base/base.f03
 	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
 
-$(BINDIR)/plotter.o: $(SRCDIR)/plotter.f03
+$(BINDIR)/plotter.o: $(SRCDIR)/plotter/plotter.f03
 	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
 
 $(BINDIR)/calculator.o: $(SRCDIR)/well/calculator.f03
@@ -76,7 +76,7 @@ $(BINDIR)/crystalbase.o: $(SRCDIR)/crystal/crystalbase.f03
 $(BINDIR)/edata.o: $(SRCDIR)/edata.f03
 	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
 
-$(BINDIR)/analysis.o: $(SRCDIR)/analysis.f03
+$(BINDIR)/analysis.o: $(SRCDIR)/analysis/analysis.f03
 	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
 
 $(BINDIR)/main.o: $(SRCDIR)/main.f03

@@ -27,46 +27,27 @@ end subroutine plot
 
 subroutine read_input()
     implicit none
-    call LBCO_hucker%setCrystal('Input/LBCO-hucker.txt')
-    Print*, LBCO_hucker%name, " Done!"
-    call YBCO_hucker%setCrystal('Input/YBCO-hucker.txt')
-    Print*, YBCO_hucker%name, " Done!"
-    call YBCO_blanco%setCrystal('Input/YBCO-blanco.txt')
-    Print*, YBCO_blanco%name, " Done!"
-    call Hg_tabis%setCrystal('Input/Hg1201-tabis.txt')
-    Print*, Hg_tabis%name, " Done!"
+    call intLBCO_hucker%set_analysis_data('Input/LBCO-hucker.txt', v0, theta)
+    call intYBCO_hucker%set_analysis_data('Input/YBCO-hucker.txt', v0, theta)
+    call intYBCO_blanco%set_analysis_data('Input/YBCO-blanco.txt', v0, theta)
+    call intHg_tabis%set_analysis_data('Input/Hg1201-tabis.txt', v0, theta)
+    Print*, " Done!"
 end subroutine read_input
-
-subroutine analyze_data()
-    implicit none
-
-    call LBCO_hucker%setWells(v0)
-    call intLBCO_hucker%set_analysis_data(LBCO_hucker,int_ord,int_ord,1,theta)
-    call YBCO_hucker%setWells(v0)
-    call intYBCO_hucker%set_analysis_data(YBCO_hucker,int_ord,int_ord,1,theta)
-    call YBCO_blanco%setWells(v0)
-    call intYBCO_blanco%set_analysis_data(YBCO_blanco,int_ord,int_ord,1,theta)
-    call Hg_tabis%setWells(v0)
-    call intHg_tabis%set_analysis_data(Hg_tabis,int_ord,int_ord,1,theta)
-
-    Print*, "Done analysing data!"
-end subroutine
-
 
 subroutine display()
     implicit none
-    call standartPrint(intLBCO_hucker,LBCO_hucker)
-    call standartPrint(intYBCO_hucker,YBCO_hucker)
-    call standartPrint(intYBCO_blanco,YBCO_blanco)
-    call standartPrint(intHg_tabis,Hg_tabis)
+    call intLBCO_hucker%standartPrint()
+    call intYBCO_hucker%standartPrint()
+    call intYBCO_blanco%standartPrint()
+    call intHg_tabis%standartPrint()
 end subroutine display
 
 subroutine display_all()
     implicit none
-    call detailPrint(intYBCO_hucker,YBCO_hucker,int_ord,theta)
-    call detailPrint(intLBCO_hucker,LBCO_hucker,int_ord,theta)
-    call detailPrint(intHg_tabis,Hg_tabis,int_ord,theta)
-    call detailPrint(intYBCO_blanco,YBCO_blanco,int_ord,theta)
+    call intLBCO_hucker%detailPrint(int_ord,theta)
+    call intYBCO_hucker%detailPrint(int_ord,theta)
+    call intYBCO_blanco%detailPrint(int_ord,theta)
+    call intHg_tabis%detailPrint(int_ord,theta)
 end subroutine display_all
 
 subroutine print_to_file()
@@ -105,54 +86,18 @@ end subroutine print_help
 
 subroutine out_plot_data()
     call system('rm -r Output/plotdata/*')
-
-call plot3DinFile(LBCO_hucker%dope,intLBCO_hucker%avgEnergyGap*1000,intLBCO_hucker%varEnergyGap*1000,'avgEnergyGap_LBCO_hucker.dat')
-    
-call plot3DinFile(YBCO_hucker%dope,intYBCO_hucker%avgEnergyGap*1000,intYBCO_hucker%varEnergyGap*1000,'avgEnergyGap_YBCO_hucker.dat')
-
-call plot3DinFile(Hg_tabis%dope,intHg_tabis%avgEnergyGap*1000,intHg_tabis%varEnergyGap*1000,'avgEnergyGap_Hg_tabis.dat')
-
-call plot3DinFile(YBCO_blanco%dope,intYBCO_blanco%avgEnergyGap*1000,intYBCO_blanco%varEnergyGap*1000,'avgEnergyGap_YBCO_blanco.dat')
-!===========================================================================================================================================
-
-    call plot2DinFile(LBCO_hucker%dope,intLBCO_hucker%topEnergyGap*1000,'topEnergyGap_LBCO_hucker.dat')
-    
-    call plot2DinFile(YBCO_hucker%dope,intYBCO_hucker%topEnergyGap*1000,'topEnergyGap_YBCO_hucker.dat')
-
-    call plot2DinFile(Hg_tabis%dope,intHg_tabis%topEnergyGap*1000,'topEnergyGap_Hg_tabis.dat')
-
-    call plot2DinFile(YBCO_blanco%dope,intYBCO_blanco%topEnergyGap*1000,'topEnergyGap_YBCO_blanco.dat')
-!===========================================================================================================================================
-
-    call plot2DinFile(LBCO_hucker%dope,intLBCO_hucker%bottomEnergyGap*1000,'bottomEnergyGap_LBCO_hucker.dat')
-    
-    call plot2DinFile(YBCO_hucker%dope,intYBCO_hucker%bottomEnergyGap*1000,'bottomEnergyGap_YBCO_hucker.dat')
-
-    call plot2DinFile(Hg_tabis%dope,intHg_tabis%bottomEnergyGap*1000,'bottomEnergyGap_Hg_tabis.dat')
-
-    call plot2DinFile(YBCO_blanco%dope,intYBCO_blanco%bottomEnergyGap*1000,'bottomEnergyGap_YBCO_blanco.dat')
-!===========================================================================================================================================
-
-    call plot2DinFile(LBCO_hucker%dope,intLBCO_hucker%avgInteraction*1000,'avgInteraction_LBCO_hucker.dat')
-    
-    call plot2DinFile(YBCO_hucker%dope,intYBCO_hucker%avgInteraction*1000,'avgInteraction_YBCO_hucker.dat')
-
-    call plot2DinFile(Hg_tabis%dope,intHg_tabis%avgInteraction*1000,'avgInteraction_Hg_tabis.dat')
-
-    call plot2DinFile(YBCO_blanco%dope,intYBCO_blanco%avgInteraction*1000,'avgInteraction_YBCO_blanco.dat')
-!==========================================================================================================================================
+    call intLBCO_hucker%export_analysis('Output/plotdata/')
+    call intYBCO_hucker%export_analysis('Output/plotdata/')
+    call intHg_tabis%export_analysis('Output/plotdata/')
+    call intYBCO_blanco%export_analysis('Output/plotdata/')
 
 end subroutine
 
 subroutine finish()
-    call intLBCO_hucker%dealoc()
-    call intYBCO_hucker%dealoc()
-    call intYBCO_blanco%dealoc()
-    call intHg_tabis%dealoc()
-    call LBCO_hucker%closeCrystal()
-    call YBCO_hucker%closeCrystal()
-    call YBCO_blanco%closeCrystal()
-    call Hg_tabis%closeCrystal()
+    call intLBCO_hucker%closeData()
+    call intYBCO_hucker%closeData()
+    call intYBCO_blanco%closeData()
+    call intHg_tabis%closeData()
 
 end subroutine  finish
 
