@@ -12,14 +12,14 @@ module Analysis
         integer             :: size
     contains
         procedure, public         :: set_analysis_data
-        procedure, private        :: analize_fix_ord
-        procedure, private        :: analize_fix_level
         procedure, public         :: printVeff
         procedure, public         :: standartPrint
         procedure, public         :: detailPrint
         procedure, public         :: export_analysis
         procedure, public         :: closeData
     !------------------------------------------------------
+        procedure, private        :: analize_fix_ord
+        procedure, private        :: analize_fix_level
         procedure, private         :: alloca
         procedure, private         :: dealloca
     !----------------------------------------------------

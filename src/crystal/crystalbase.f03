@@ -17,12 +17,12 @@ module crystalBase
         integer                        :: dataLEN                         !Número de pontos.
         real                           :: charge_mod                      !Modulação de de carga dentro do poço ()
         real                           :: unit_cell_100                   !Distancia [100] do cristal
-        character(:),allocatable          :: name                            !Nome do cristal
+        character(:),allocatable       :: name                            !Nome do cristal
     !-----------------------------------------------------------------------------------------------------------------------!
         real, allocatable                :: corr_L(:), ee_corr_L(:)         !Comprimento de correlação ; Erro sobre corr_L 
         real, allocatable                :: dope(:)                         !Dopagem do cristal (hole/unity cell)
         real*8, allocatable              :: E_0(:)                          !Parâmetro E_0
-        integer(kind=2), allocatable     :: Nmax(:)                         !Nível de preenchimento dos elétrons sobre o poço quadrado
+        integer, allocatable             :: Nmax(:)                         !Nível de preenchimento dos elétrons sobre o poço quadrado
     !--------------------------------------------------------------------------------------------------------------------------------
         
         type(Earray), dimension(:), allocatable               :: well_E       !Array com as energias do poço quadrado com Comprimento 'corr_L'
@@ -56,7 +56,7 @@ contains
 
 #include<../src/crystal/setParams.f03>
 
-#include<../src/crystal/find_in_file.f03>
+#include<../src/IO/find_in_file.f03>
 
 #include<../src/crystal/printCrystalData.f03>
 

@@ -7,13 +7,17 @@
         character(100)                  :: aux
         class(crystal), intent (inout)  :: this
         
-        Print*, "Reading data ..."
 
         aux = find_in_file(crystalInfoPath,'crystal_name')
 
         this%name = trim(adjustl(aux))
 
+        print*, this%name
+
         aux =  find_in_file(crystalInfoPath, 'data_len')
+
+        print*, aux
+
         read(aux,*) this%dataLEN
 !-------------------------------------------------
         call this%alloc()

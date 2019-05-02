@@ -1,53 +1,57 @@
-subroutine fit_data(dataX, dataY)
-    implicit none
-    real, intent(in) :: dataX(:), dataY(:)
-    real,allocatable :: out(:)
-    integer          :: n
-    print*, "qual ordem"
-    read(*,*) n
-    allocate(out(n+1))
-    
-
-    out = fit_polinomial (dataX, dataY, n)
-
-    print*, out
-end subroutine fit_data
-
-
+!subroutine fit_data(dataX, dataY)
+!    implicit none
+!    real, intent(in) :: dataX(:), dataY(:)
+!    real,allocatable :: out(:)
+!    integer          :: n
+!    print*, "qual ordem"
+!    read(*,*) n
+!    allocate(out(n+1))
+!    
+!
+!    out = fit_polinomial (dataX, dataY, n)
+!
+!    print*, out
+!end subroutine fit_data
 
 
-subroutine plot()
-    implicit none
-    CALL SYSTEM ('gnuplot Input/styles/hg_tabis_energyGap.gp')
-    CALL SYSTEM ('gnuplot Input/styles/ybco_hucker_energyGap.gp')
-    CALL SYSTEM ('gnuplot Input/styles/ybco_blanco_energyGap.gp')
-    CALL SYSTEM ('gnuplot Input/styles/lbco_hucker_energyGap.gp')
-end subroutine plot
 
 
 subroutine read_input()
     implicit none
-    call intLBCO_hucker%set_analysis_data('Input/LBCO-hucker.txt', v0, theta)
-    call intYBCO_hucker%set_analysis_data('Input/YBCO-hucker.txt', v0, theta)
-    call intYBCO_blanco%set_analysis_data('Input/YBCO-blanco.txt', v0, theta)
-    call intHg_tabis%set_analysis_data('Input/Hg1201-tabis.txt', v0, theta)
+    call input_files%create_input_manifest('Input/data')
     Print*, " Done!"
 end subroutine read_input
 
+subroutine set_data()
+    implicit none
+    integer ::  i_, size_
+    size_ = size(input_files%manifest)
+
+    allocate (DATA(size_))
+    do i_ = 1, size_
+        call DATA(i_)%set_analysis_data(input_files%manifest(i_), v0, theta)
+    end do
+    
+end subroutine set_data
+
 subroutine display()
     implicit none
-    call intLBCO_hucker%standartPrint()
-    call intYBCO_hucker%standartPrint()
-    call intYBCO_blanco%standartPrint()
-    call intHg_tabis%standartPrint()
+    integer ::  i_, size_
+
+    size_ = size(input_files%manifest)
+    do i_ = 1, size_
+        call DATA(i_)%standartPrint()
+    end do
 end subroutine display
 
 subroutine display_all()
     implicit none
-    call intLBCO_hucker%detailPrint(int_ord,theta)
-    call intYBCO_hucker%detailPrint(int_ord,theta)
-    call intYBCO_blanco%detailPrint(int_ord,theta)
-    call intHg_tabis%detailPrint(int_ord,theta)
+    integer ::  i_, size_
+
+    size_ = size(input_files%manifest)
+    do i_ = 1, size_
+        call DATA(i_)%detailPrint(int_ord, theta)
+    end do
 end subroutine display_all
 
 subroutine print_to_file()
@@ -85,20 +89,32 @@ print *, "print_to_file             Escreve as informações detalhadas em no ar
 end subroutine print_help
 
 subroutine out_plot_data()
+    implicit none
+    integer ::  i_, size_
     call system('rm -r Output/plotdata/*')
-    call intLBCO_hucker%export_analysis('Output/plotdata/')
-    call intYBCO_hucker%export_analysis('Output/plotdata/')
-    call intHg_tabis%export_analysis('Output/plotdata/')
-    call intYBCO_blanco%export_analysis('Output/plotdata/')
 
+    size_ = size(input_files%manifest)
+    do i_ = 1, size_
+        call DATA(i_)%export_analysis('Output/plotdata')
+    end do    
 end subroutine
 
-subroutine finish()
-    call intLBCO_hucker%closeData()
-    call intYBCO_hucker%closeData()
-    call intYBCO_blanco%closeData()
-    call intHg_tabis%closeData()
+subroutine plot()
+    implicit none
+    CALL SYSTEM ('gnuplot Input/styles/hg_tabis_energyGap.gp')
+    CALL SYSTEM ('gnuplot Input/styles/ybco_hucker_energyGap.gp')
+    CALL SYSTEM ('gnuplot Input/styles/ybco_blanco_energyGap.gp')
+    CALL SYSTEM ('gnuplot Input/styles/lbco_hucker_energyGap.gp')
+end subroutine plot
 
+subroutine finish()
+    implicit none
+    integer ::  i_, size_
+
+    size_ = size(input_files%manifest)
+    do i_ = 1, size_
+        call DATA(i_)%closeData()
+    end do  
 end subroutine  finish
 
 subroutine quit()

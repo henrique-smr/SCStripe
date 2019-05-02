@@ -24,9 +24,9 @@ subroutine standartPrint(this)
 
     write(*,fmt2)     "    ",'Interação (eV)               |  ',  (this%avgInteraction(i_),"  | ",   i_=1,this%size)
     print*, ""
-    write(*,fmt2)     "    ",'〈 ΔE 〉(meV)                 |  ',  (this%avgEnergyGap(i_)*1000 ," | ",  i_ = 1, this%size )
+    write(*,fmt2)     "    ",'〈 ΔE 〉(meV)                |   ',  (this%avgEnergyGap(i_)*1000 ,"  | ",  i_ = 1, this%size )
     print*, ""
-    write(*,fmt2)     "    ",'σ²(ΔE) (meV)                 |  ',  (this%varEnergyGap(i_)*1000 ," | ",  i_ = 1, this%size )
+    write(*,fmt2)     "    ",'σ²(ΔE) (meV)                 |  ',  (this%varEnergyGap(i_)*1000 ,"  | ",  i_ = 1, this%size )
     print*, ""
     print*, ""
 

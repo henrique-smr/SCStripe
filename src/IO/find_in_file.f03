@@ -10,7 +10,8 @@ function find_in_file(file_, label_) result(result)
     integer                       :: pos_
     integer                       :: line_=0
     integer(kind=2), parameter    :: fn_ = 115
-    open (fn_, file=file_, status='old', iostat=ios_)
+    open (fn_, file=file_, iostat=ios_)
+    
     rewind(fn_)
 
     if (ios_ .ne. 0) then

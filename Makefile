@@ -25,13 +25,13 @@ target = SCStripe
 #=====Sources and Objects=========================================
 
 files = $(SRCDIR)/well/base/instructools.f03 $(SRCDIR)/plotter/plotter.f03 $(SRCDIR)/well/base/base.f03  \
-		  $(SRCDIR)/well/calculator.f03 $(SRCDIR)/well/auto.f03 \
+		  $(SRCDIR)/well/calculator.f03 $(SRCDIR)/well/auto.f03 $(SRCDIR)/IO/IO.f03 \
 		  $(SRCDIR)/crystal/crystalbase.f03 $(SRCDIR)/analysis/analysis.f03 \
 		   $(SRCDIR)/main.f03 
 
 
 objects = $(BINDIR)/instructools.o $(BINDIR)/linear_system.o $(BINDIR)/data_fit.o $(BINDIR)/plotter.o \
-			$(BINDIR)/base.o $(BINDIR)/calculator.o $(BINDIR)/auto.o \
+			$(BINDIR)/base.o $(BINDIR)/calculator.o $(BINDIR)/auto.o $(BINDIR)/IO.o \
 				$(BINDIR)/crystalbase.o $(BINDIR)/analysis.o $(BINDIR)/main.o
 
 
@@ -68,6 +68,9 @@ $(BINDIR)/calculator.o: $(SRCDIR)/well/calculator.f03
 	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
 
 $(BINDIR)/auto.o: $(SRCDIR)/well/auto.f03
+	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
+
+$(BINDIR)/IO.o: $(SRCDIR)/IO/IO.f03
 	$(FC) $(FFLAGS) -J $(MODDIR) -c $< -o $@
 
 $(BINDIR)/crystalbase.o: $(SRCDIR)/crystal/crystalbase.f03
