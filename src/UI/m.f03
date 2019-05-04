@@ -1,20 +1,3 @@
-!subroutine fit_data(dataX, dataY)
-!    implicit none
-!    real, intent(in) :: dataX(:), dataY(:)
-!    real,allocatable :: out(:)
-!    integer          :: n
-!    print*, "qual ordem"
-!    read(*,*) n
-!    allocate(out(n+1))
-!    
-!
-!    out = fit_polinomial (dataX, dataY, n)
-!
-!    print*, out
-!end subroutine fit_data
-
-
-
 
 subroutine read_input()
     implicit none
@@ -68,7 +51,7 @@ print *, "quick                     Executa os comandos read_input e analyze em 
 print *, ""
 print *, "read_input                Lê as informações sobre os cristais e suas CDW's"
 print *, ""
-print *, "analyze                   1) Calcula as auto-energias (E_n) de cada poço quadrado, definidos pelos comprimentos"
+print *, "set_data                  1) Calcula as auto-energias (E_n) de cada poço quadrado, definidos pelos comprimentos"
 print *, "                             de correlação de cada CDW, e pelo seu potencial, para cada dopagem do cristal"
 print *, "                          2) Calcula a interação BCS média, a diferença média das auto-energias, a variância"
 Print *, "                              das diferenças de auto-energias e afins."
@@ -88,7 +71,7 @@ print *, "print_to_file             Escreve as informações detalhadas em no ar
 
 end subroutine print_help
 
-subroutine out_plot_data()
+subroutine export()
     implicit none
     integer ::  i_, size_
     call system('rm -r Output/plotdata/*')
@@ -105,6 +88,8 @@ subroutine plot()
     CALL SYSTEM ('gnuplot Input/styles/ybco_hucker_energyGap.gp')
     CALL SYSTEM ('gnuplot Input/styles/ybco_blanco_energyGap.gp')
     CALL SYSTEM ('gnuplot Input/styles/lbco_hucker_energyGap.gp')
+    CALL SYSTEM ('gnuplot Input/styles/LBCO-YBCO_hucker_interaction.gp')
+    CALL SYSTEM ('gnuplot Input/styles/LBCO-YBCO_canosa_interaction.gp')
 end subroutine plot
 
 subroutine finish()

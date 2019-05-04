@@ -26,7 +26,7 @@ function find_in_file(file_, label_) result(result)
             buffer_ = buffer_(pos_+1:)
 
             if(id == label_) then
-                result = buffer_
+                result = trim(adjustl(buffer_))
                 close(fn_)
                 return
             end if

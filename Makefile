@@ -10,8 +10,8 @@ FFLAGS 	:= -O3 -Wall -Warray-bounds -fbounds-check -fcheck=all -cpp
 #====Directories======
 
 SRCDIR = src
-BINDIR = bin
-MODDIR = mod
+BINDIR = .bin
+MODDIR = .mod
 
 VPATH = src src/well src/well/base /src/crystal
 #files = $(wildcard src/well/base/*f03) $(wildcard src/well/*f03) $(wildcard src/crystalbase/*f03) $(wildcard src/*f03)   
